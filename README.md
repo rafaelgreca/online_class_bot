@@ -2,7 +2,13 @@
 
 We all know that online classes are boring, so let the bot attend them for you!
 
-![MIT License](https://img.shields.io/github/license/rafaelgreca/online_class_bot)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+
+## Installation
+
+Repo and readme still under construction!
 
 ## Installation
 
@@ -26,9 +32,7 @@ pip3 install -r requirements.txt
 
 ## How to use
 
-First of all you need to configure the "classes.csv" as above. You **have to** add classes using the same format and the week day **must be** wrote in English.
-
-![Classes file](https://imgur.com/a/c3gYpMi)
+First of all you need to configure the "classes.csv". You **have to** add classes using the same format and the week day **must be** wrote in English.
 
 After doing that and cloning the repository, you need to create a **.env** file inside the folder and add the following lines:
 
