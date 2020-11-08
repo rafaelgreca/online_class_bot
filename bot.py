@@ -117,7 +117,7 @@ class Bot:
                 if current_people > total:
                     total = current_people
     
-                if current_people < total:
+                if current_people <= total/3:
                     leave_class = driver.find_element_by_xpath('/html/body/div[1]/c-wiz/div[1]/div/div[6]/div[3]/div[9]/div[2]/div[2]')
                     leave_class.click()
                     driver.quit()
