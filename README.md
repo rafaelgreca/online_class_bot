@@ -8,10 +8,6 @@ We all know that online classes are boring, so let the bot attend them for you!
 
 ## Installation
 
-Repo and readme still under construction!
-
-## Installation
-
 Clone the repository using the following code:
 
 ```bash
@@ -52,6 +48,30 @@ The bot will schedule all your classes using the csv file with the information. 
 
 - [x] Google Meet
 - [ ] Microsoft Team (Coming soon)
+
+## How to use
+
+Before running the code you know to confirm that you did the steps above and all configuration was successful. Then you need to fill the classes' table informations like the image bellow.
+
+![How to config the classes](images/classes_infos.png)
+
+After doing that, if you didn't install the dependecies please go to the installation section and install before continue. Finally, run the main file using the code bellow:
+
+```python
+python3 main.py
+```
+
+or if you are using python 2:
+
+```python
+python main.py
+```
+
+And **you HAVE TO let the programming running** or run it in a server to make sure that the bot will not miss the classes schedule. Check your timezone first and do all the changes for safety, because might have a difference between the timezone used on the code and your country. After a class is finished you will receive a message like this on your discord's channel you made:
+
+![Bot notification on Discord](images/bot_notifications.png)
+
+Enjoy it! :)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
