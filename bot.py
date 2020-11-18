@@ -12,6 +12,8 @@ import schedule
 import datetime
 import discord
 from discord.ext import commands
+import math
+from decouple import config
 
 class Bot:
     """
@@ -24,6 +26,7 @@ class Bot:
         self._email = email
         self._password = password
 
+    #get the classes info from the csv file
     def UpdateClasses(self):
         classes = pd.read_csv("classes.csv")
         classes_list = []
@@ -34,6 +37,7 @@ class Bot:
         
         self._classes = classes_list
 
+    #enter your google meet class
     def LoginClass(self, class_name, link, start_time):
        
         #accept the microfone and camera permissions
@@ -70,9 +74,8 @@ class Bot:
 
         self.CheckCurrentPeople(driver, class_name, start_time)
     
+    #check if you have any classes in the day
     def CheckClasses(self):
-
-        current_date = datetime.datetime.today()
 
         for c in self._classes:
 
@@ -103,9 +106,11 @@ class Bot:
             schedule.run_pending() 
             time.sleep(2) 
 
+    #check every 5 seconds the amount people watching the class
     def CheckCurrentPeople(self, driver, class_name, start_time):
 
         try:
+            #wait at most 60 seconds to join the class
             chat_button = WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/c-wiz/div[1]/div/div[6]/div[3]/div[6]/div[3]/div/div[2]/div[1]")))
             chat_button.click()
             total = 1
@@ -117,15 +122,17 @@ class Bot:
                 if current_people > total:
                     total = current_people
     
-                if current_people <= total/3:
-                    leave_class = driver.find_element_by_xpath('/html/body/div[1]/c-wiz/div[1]/div/div[6]/div[3]/div[9]/div[2]/div[2]')
-                    leave_class.click()
+                if current_people <= math.ceil(total/3)+1:
+                    ##leave_class = driver.find_element_by_xpath('/html/body/div[1]/c-wiz/div[1]/div/div[6]/div[3]/div[9]/div[2]/div[2]')
+                    ##leave_class.click()
                     driver.quit()
                     self.NotifyDiscord(class_name, start_time, datetime.datetime.now())
 
+        #the professor didn't accept you in time
         except TimeoutException:
             print("Waiting to join the class...")
 
+    #aux function to return the amount of current people watching
     def GetTotalPeople(self, driver):
         
         total_people = driver.find_element_by_xpath("/html/body/div[1]/c-wiz/div[1]/div/div[6]/div[3]/div[3]/div/div[2]/div[2]/div[1]/div[1]/span/div/span[2]")
@@ -136,17 +143,20 @@ class Bot:
         total_people_formatted = total_people_formatted.group(0)
         return int(total_people_formatted)
 
+    #send a message to your discord server when a class is over
     def NotifyDiscord(self, class_name, start_time, end_time):
 
         bot = commands.Bot(command_prefix='!')
         bot.remove_command('help')
 
+        #search for a specific text channel on your discord server
         def FindDiscordChannel():
             for guild in bot.guilds:
                 for channel in guild.text_channels:
                     if channel.name == 'online-classes':
                         return channel.id
 
+        #add a help command
         @bot.command()
         async def help(ctx):
             channel_id = FindDiscordChannel()
