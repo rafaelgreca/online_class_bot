@@ -69,7 +69,7 @@ python main.py
 
 And **you HAVE TO let the programming running** or run it in a server to make sure that the bot will not miss the classes schedule. Check your timezone first and do all the changes for safety, because might have a difference between the timezone used on the code and your country. After a class is finished you will receive a message like this on your discord's channel you made:
 
-![Bot notification on Discord](images/bot_notifications.png)
+![Bot notification on Discord](images/bot_notification.png)
 
 Enjoy it! :)
 
