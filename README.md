@@ -47,7 +47,6 @@ The bot will schedule all your classes using the csv file with the information. 
 ## Works on
 
 - [x] Google Meet
-- [ ] Microsoft Team (Coming soon)
 
 ## How to use
 
